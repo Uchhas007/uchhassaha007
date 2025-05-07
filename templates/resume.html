@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+
+<section class="ftco-section ftco-no-pb" id="resume-section">
+    <div class="container">
+        <div class="row justify-content-center pb-5">
+      <div class="col-md-10 heading-section text-center ftco-animate">
+          <h1 class="big big-2">Resume</h1>
+        <h2 class="mb-4">Resume</h2>
+      </div>
+    </div>
+
+    {% set halfway = (r | length) // 2 %}
+    <div class="row">
+      <!-- Left Column -->
+      <div class="col-md-6">
+        {% for item in r[:halfway] %}
+        <div class="resume-wrap ftco-animate">
+          <span class="date">{{ item.date }}</span>
+          <h2>{{ item.degree }}</h2>
+          <span class="position">{{ item.institute }}</span>
+          <p class="mt-4">{{ item.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    
+      <!-- Right Column -->
+      <div class="col-md-6">
+        {% for item in r[halfway:] %}
+        <div class="resume-wrap ftco-animate">
+          <span class="date">{{ item.date }}</span>
+          <h2>{{ item.degree }}</h2>
+          <span class="position">{{ item.institute }}</span>
+          <p class="mt-4">{{ item.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>    
+    </div>
+</section>
+
+
+<section class="ftco-section ftco-no-pb" id="resume-section">
+  <div class="container">
+      <div class="row justify-content-center pb-5">
+    <div class="col-md-10 heading-section text-center ftco-animate">
+        <h1 class="big big-2">Certificates</h1>
+      <h2 class="mb-4">Certificates</h2>    
+    </div>
+  </div>
+
+  {% set halfway = (c | length) // 2 %}
+  <div class="row">
+    <!-- Left Column -->
+    <div class="col-md-6">
+      {% for item in c[:halfway] %}
+      <a href="{{ item.url }}" target="_blank" style="text-decoration: none; color: inherit;">
+        <div class="resume-wrap ftco-animate" style="cursor: pointer;">
+          <span class="date">{{ item.date }}</span>
+          <h2>{{ item.name }}</h2>
+          <span class="position">{{ item.platform }}</span>
+          <p class="mt-4">{{ item.description }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  
+    <!-- Right Column -->
+    <div class="col-md-6">
+      {% for item in c[halfway:] %}
+      <a href="{{ item.url }}" target="_blank" style="text-decoration: none; color: inherit;">
+        <div class="resume-wrap ftco-animate" style="cursor: pointer;">
+          <span class="date">{{ item.date }}</span>
+          <h2>{{ item.name }}</h2>
+          <span class="position">{{ item.platform }}</span>
+          <p class="mt-4">{{ item.description }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  
+      <div class="row justify-content-center mt-5">
+          <div class="col-md-6 text-center ftco-animate">
+              <p><a href="{{ url_for('static', filename = params.cv) }}" class="btn btn-primary py-4 px-5">Download CV</a></p>
+          </div>
+      </div>
+  </div>
+</section>
+
+{% endblock %}

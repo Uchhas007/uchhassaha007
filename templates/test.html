@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crazy Bookstore</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+    header, footer { background: #333; color: #fff; padding: 1em; text-align: center; }
+    .container { padding: 2em; }
+    .section { margin-bottom: 3em; }
+    .book, .stationery { border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; background: #fff; }
+    .cart, .wishlist, .orders { background: #fff; padding: 1em; border: 1px solid #aaa; margin-top: 2em; }
+    button { padding: 0.5em 1em; margin-top: 0.5em; }
+    input[type="text"], input[type="number"] { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+    select { width: 100%; padding: 0.5em; margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Crazy Bookstore</h1>
+  </header>
+
+  <div class="container">
+    <!-- Search & Filter -->
+    <div class="section">
+      <h2>🔍 Search & Filter</h2>
+      <input type="text" id="searchInput" placeholder="Search by title, author">
+      <select id="filter">
+        <option value="">Sort By</option>
+        <option value="popular">Popular</option>
+        <option value="best-selling">Best-Selling</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+      </select>
+      <button onclick="filterBooks()">Apply</button>
+    </div>
+
+    <!-- Book List -->
+    <div class="section">
+      <h2>📖 Available Books</h2>
+      <div id="bookList"></div>
+    </div>
+
+    <!-- Stationery Section -->
+    <div class="section">
+      <h2>🖊️ Stationery</h2>
+      <div id="stationeryList"></div>
+    </div>
+
+    <!-- Cart -->
+    <div class="cart">
+      <h2>🛒 Shopping Cart</h2>
+      <div id="cartItems"></div>
+    </div>
+
+    <!-- Wishlist -->
+    <div class="wishlist">
+      <h2>💖 Wishlist</h2>
+      <div id="wishlistItems"></div>
+    </div>
+
+    <!-- Order History -->
+    <div class="orders">
+      <h2>📦 Order History</h2>
+      <div id="orderHistory"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Crazy Bookstore</p>
+  </footer>
+
+  <script>
+    const books = [
+      { id: 1, title: "AI Revolution", author: "John Bot", price: 299, stock: 5, category: "Tech", publisher: "Panjeri", popularity: 9 },
+      { id: 2, title: "Machine Learning Magic", author: "Jane AI", price: 199, stock: 2, category: "Tech", publisher: "Rokomari", popularity: 10 }
+    ];
+
+    const stationery = [
+      { id: 101, name: "Notebook", price: 50 },
+      { id: 102, name: "Pen", price: 20 }
+    ];
+
+    let cart = [], wishlist = [], orders = [];
+
+    function renderBooks() {
+      const list = document.getElementById('bookList');
+      list.innerHTML = '';
+      books.forEach(book => {
+        list.innerHTML += `
+          <div class="book">
+            <h4>${book.title}</h4>
+            <p>Author: ${book.author} | Publisher: ${book.publisher} | Price: $${book.price}</p>
+            <p>Stock: ${book.stock}</p>
+            <button onclick="addToCart(${book.id})">Add to Cart</button>
+            <button onclick="addToWishlist(${book.id})">Add to Wishlist</button>
+          </div>
+        `;
+      });
+    }
+
+    function renderStationery() {
+      const list = document.getElementById('stationeryList');
+      stationery.forEach(item => {
+        list.innerHTML += `
+          <div class="stationery">
+            <h4>${item.name}</h4>
+            <p>Price: $${item.price}</p>
+            <button onclick="addToCart(${item.id}, true)">Add to Cart</button>
+          </div>
+        `;
+      });
+    }
+
+    function addToCart(id, isStationery = false) {
+      const item = isStationery ? stationery.find(s => s.id === id) : books.find(b => b.id === id);
+      if (!isStationery && item.stock <= 0) return alert("Out of stock!");
+      cart.push(item);
+      if (!isStationery) item.stock--;
+      renderCart();
+    }
+
+    function addToWishlist(id) {
+      const book = books.find(b => b.id === id);
+      wishlist.push(book);
+      renderWishlist();
+    }
+
+    function renderCart() {
+      const list = document.getElementById('cartItems');
+      list.innerHTML = cart.map(i => `<p>${i.title || i.name} - $${i.price}</p>`).join('');
+    }
+
+    function renderWishlist() {
+      const list = document.getElementById('wishlistItems');
+      list.innerHTML = wishlist.map(i => `<p>${i.title}</p>`).join('');
+    }
+
+    function renderOrders() {
+      const list = document.getElementById('orderHistory');
+      list.innerHTML = orders.map(o => `<p>${o.title} - ${o.date}</p>`).join('');
+    }
+
+    function filterBooks() {
+      const filter = document.getElementById('filter').value;
+      const keyword = document.getElementById('searchInput').value.toLowerCase();
+      let filtered = [...books];
+
+      if (keyword) {
+        filtered = filtered.filter(b => b.title.toLowerCase().includes(keyword) || b.author.toLowerCase().includes(keyword));
+      }
+
+      if (filter === 'low') filtered.sort((a, b) => a.price - b.price);
+      if (filter === 'high') filtered.sort((a, b) => b.price - a.price);
+      if (filter === 'popular' || filter === 'best-selling') filtered.sort((a, b) => b.popularity - a.popularity);
+
+      const list = document.getElementById('bookList');
+      list.innerHTML = '';
+      filtered.forEach(book => {
+        list.innerHTML += `
+          <div class="book">
+            <h4>${book.title}</h4>
+            <p>Author: ${book.author} | Publisher: ${book.publisher} | Price: $${book.price}</p>
+            <p>Stock: ${book.stock}</p>
+            <button onclick="addToCart(${book.id})">Add to Cart</button>
+            <button onclick="addToWishlist(${book.id})">Add to Wishlist</button>
+          </div>
+        `;
+      });
+    }
+
+    // Init
+    renderBooks();
+    renderStationery();
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home | My Website{% endblock %}
+
+{% block body %}
+<section class="ftco-section" id="skills-section">
+    <div class="container">
+        <div class="row justify-content-center pb-5">
+  <div class="col-md-12 heading-section text-center ftco-animate">
+      <h1 class="big big-2">Skills</h1>
+    <h2 class="mb-4">My Skills</h2>
+  </div>
+</div>
+<div class="row">
+    {% for skill in skills %}
+    <div class="col-md-6 animate-box">
+        <div class="progress-wrap ftco-animate">
+            <h3>{{ skill.name }}</h3>
+            <div class="progress">
+                <div class="progress-bar {{ skill.sno }}" role="progressbar" aria-valuenow="{{ skill.percentage }}"
+                    aria-valuemin="0" aria-valuemax="100" style="width:{{ skill.percentage }}%">
+                    <span>{{ skill.percentage }}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    </div>
+</section>
+
+
+<section class="ftco-section" id="skills-section">
+    <div class="container">
+        <div class="row justify-content-center pb-5">
+  <div class="col-md-12 heading-section text-center ftco-animate">
+      <h1 class="big big-2">Language Proficiency</h1>
+    <h2 class="mb-4">Language Proficiency</h2>
+  </div>
+</div>
+<div class="row">
+    {% for l in lang %}
+    <div class="col-md-6 animate-box">
+        <div class="progress-wrap ftco-animate">
+            <h3>{{ l.lang }}</h3>
+            <div class="progress">
+                <div class="progress-bar {{ l.sno }}" role="progressbar" aria-valuenow="{{ l.percentage }}"
+                    aria-valuemin="0" aria-valuemax="100" style="width:{{ l.percentage }}%">
+                    <span>{{ l.percentage }}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    </div>
+</section>
+
+{% endblock %}

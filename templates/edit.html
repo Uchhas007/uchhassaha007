@@ -1,0 +1,39 @@
+{% extends 'adminlayout.html' %}
+
+{% block body %}
+
+<div class="container mt-5">
+  <h2 class="mb-4">✏️ Edit This Damn Contact</h2>
+
+  <form action="/admin/contacts/edit/{{sno}}>" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" value="{{ contact.name }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="num" class="form-label">Contact Number</label>
+      <input type="text" class="form-control" id="num" name="num" value="{{ contact.num }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" value="{{ contact.email }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="subject" class="form-label">Subject</label>
+      <input type="text" class="form-control" id="subject" name="subject" value="{{ contact.subject }}">
+    </div>
+
+    <div class="mb-3">
+      <label for="msg" class="form-label">Message</label>
+      <textarea class="form-control" id="msg" name="msg" rows="4">{{ contact.msg }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">💾 Save This Beast</button>
+    <a href="/admin/contacts" class="btn btn-secondary ms-2">❌ Cancel</a>
+  </form>
+</div>
+
+{% endblock %}

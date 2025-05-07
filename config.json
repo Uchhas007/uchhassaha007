@@ -1,0 +1,25 @@
+{
+    "params":
+    {
+        "name": "Uchhas Saha",
+        "born": ["April", "9th", 2004],
+        "sex": "Male",
+        "nationality": "Bangladeshi",
+        "from": ["Razia Sultana Rd","Mohammadpur", "Dhaka", "1207", "Bangladesh", "(C-137)"],
+        "prof": "Freelance Web Designer",
+        "email": "uchhassaha46@gmail.com",
+        "phone": "+880 1715 123456",
+        "facebook": "https://www.facebook.com/uchhas.007",
+        "twitter": "https://x.com/utshow__",
+        "instagram": "https://www.instagram.com/_utshoww_/",
+        "linkedin": "https://www.linkedin.com/in/uchhassaha007/",
+        "github": "https://github.com/uchhas",
+        "no_of_projects": 4,
+        "awards": 7,
+        "customers": 0,
+        "coffee":0,
+        "cv": "files/Uchhas Saha_Resume.pdf",
+        "admin": "uchhas.saha@gmail.com",
+        "pass": "a_password_lol"
+    }
+}

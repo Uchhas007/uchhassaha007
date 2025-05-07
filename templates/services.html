@@ -1,0 +1,168 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home | My Website{% endblock %}
+
+{% block body %}
+
+<style>
+    .service-logo {
+        width: 100%; /* Ensure image takes full width of the container */
+        height: 100%; /* Ensure image takes full height of the container */
+        object-fit: cover; /* This makes sure the image fills the container without distortion */
+        position: absolute; /* Position image absolutely within the container */
+        top: 0;
+        left: 0;
+    }
+
+    .service-box {
+        position: relative;
+        width: 100%;
+        height: 250px; /* Set a fixed height for uniformity */
+        overflow: hidden; /* Hide any part of the image that overflows */
+        border: 2px solid #ddd; /* Optional: adds a border around the image */
+        padding: 10px;
+        box-sizing: border-box; /* Ensures padding doesn’t affect the width */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease-in-out; /* Add smooth transition for scaling */
+    }
+
+    .service-box:hover {
+        transform: scale(1.05); /* Slight zoom effect on hover */
+    }
+
+    .service-text {
+        position: absolute;
+        top: 50%; /* Vertically center the text */
+        left: 50%; /* Horizontally center the text */
+        transform: translate(-50%, -50%); /* Adjust for exact centering */
+        color: white; /* Make sure text is white for contrast */
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        z-index: 10; /* Ensure the text stays above the image */
+    }
+
+    /* Ensure the text color stays white and unaffected on hover */
+    .services-1:hover .service-text h3 {
+        color: white !important; /* Force the text to remain white on hover */
+    }
+
+    .services-1 {
+        text-decoration: none; /* Remove default link styling */
+    }
+</style>
+
+<section class="ftco-section ftco-no-pb" id="resume-section">
+    <div class="container">
+        <div class="row justify-content-center pb-5">
+      <div class="col-md-10 heading-section text-center ftco-animate">
+          <h1 class="big big-2">Experiences</h1>
+        <h2 class="mb-4">Experiences</h2>    
+      </div>
+    </div>
+  
+    {% set halfway = (e | length) // 2 %}
+    <div class="row">
+      <!-- Left Column -->
+      <div class="col-md-6">
+        {% for item in e[:halfway] %}
+        <!-- <a href="{{ item.url }}" target="_blank" style="text-decoration: none; color: inherit;"> -->
+          <div class="resume-wrap ftco-animate" style="cursor: pointer;">
+            <span class="date">{{ item.date }}</span>
+            <h2>{{ item.name }}</h2>
+            <span class="position">{{ item.platform }}</span>
+            <p class="mt-4">{{ item.description }}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    
+      <!-- Right Column -->
+      <div class="col-md-6">
+        {% for item in e[halfway:] %}
+        <!-- <a href="{{ item.url }}" target="_blank" style="text-decoration: none; color: inherit;"> -->
+          <div class="resume-wrap ftco-animate" style="cursor: pointer;">
+            <span class="date">{{ item.date }}</span>
+            <h2>{{ item.name }}</h2>
+            <span class="position">{{ item.platform }}</span>
+            <p class="mt-4">{{ item.description }}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+  </section>  
+
+<section class="ftco-section" id="services-section">
+    <div class="container">
+        <div class="row justify-content-center py-5 mt-5">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <h1 class="big big-2">Services</h1>
+                <h2 class="mb-4">Services</h2>
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+            </div>
+        </div>
+
+        {% set columns = 3 %}
+        {% set items_per_column = (s | length + columns - 1) // columns %}
+        {% set column_1 = s[:items_per_column] %}
+        {% set column_2 = s[items_per_column:2*items_per_column] %}
+        {% set column_3 = s[2*items_per_column:3*items_per_column] %}
+
+        <div class="row">
+            <!-- First Column -->
+            <div class="col-md-4">
+                {% for service in column_1 %}
+                <div class="text-center d-flex ftco-animate">
+                    <a href="#" class="services-1">
+                        <div class="service-box">
+                            <img src="{{ url_for('static', filename=service.image_file) }}" alt="{{ service.name }} logo" class="service-logo">
+                            <div class="service-text">
+                                <h3>{{ service.name }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Second Column -->
+            <div class="col-md-4">
+                {% for service in column_2 %}
+                <div class="text-center d-flex ftco-animate">
+                    <a href="#" class="services-1">
+                        <div class="service-box">
+                            <img src="{{ url_for('static', filename=service.image_file) }}" alt="{{ service.name }} logo" class="service-logo">
+                            <div class="service-text">
+                                <h3>{{ service.name }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Third Column -->
+            <div class="col-md-4">
+                {% for service in column_3 %}
+                <div class="text-center d-flex ftco-animate">
+                    <a href="#" class="services-1">
+                        <div class="service-box">
+                            <img src="{{ url_for('static', filename=service.image_file) }}" alt="{{ service.name }} logo" class="service-logo">
+                            <div class="service-text">
+                                <h3>{{ service.name }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

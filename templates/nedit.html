@@ -1,0 +1,50 @@
+{% extends 'adminlayout.html' %}
+
+{% block body %}
+
+<div class="container mt-5">
+  <h2 class="mb-4">✏️ Edit This Damn Record</h2>
+
+  <form action="/admin/{{ table }}/edit/{{ sno }}" method="POST" enctype="multipart/form-data">
+
+    {% for field, value in record.__dict__.items() %}
+      {% if field not in ['_sa_instance_state', 'sno', 'date'] %}
+        <div class="mb-3">
+          <label for="{{ field }}" class="form-label">{{ field|capitalize }}</label>
+
+          {% if field == 'msg' or field == 'message' %}
+            <textarea class="form-control" id="{{ field }}" name="{{ field }}" rows="4">{{ value }}</textarea>
+          {% else %}
+            <input type="text" class="form-control" id="{{ field }}" name="{{ field }}" value="{{ value }}">
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Checkbox to toggle file upload -->
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="toggleFile" onclick="toggleFileUpload()">
+      <label class="form-check-label" for="toggleFile">
+        Wanna upload a file? 📁
+      </label>
+    </div>
+
+    <!-- Hidden file upload input -->
+    <div class="mb-3" id="fileUploadSection" style="display:none;">
+      <label for="file" class="form-label">Upload File (only if you're brave)</label>
+      <input type="file" class="form-control" id="file" name="file1">
+    </div>
+
+    <button type="submit" class="btn btn-primary">💾 Save This Beast</button>
+    <a href="/admin/{{ table }}" class="btn btn-secondary ms-2">❌ Cancel</a>
+  </form>
+</div>
+
+<script>
+  function toggleFileUpload() {
+    var section = document.getElementById('fileUploadSection');
+    section.style.display = section.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
+
+{% endblock %}

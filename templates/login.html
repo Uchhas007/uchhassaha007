@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Admin Login Page">
+    <meta name="author" content="Your Name">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <title>Uchhas Saha | Admin Login</title>
+
+    <!-- Bootstrap 5.0 CSS (Modern version) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts for slick typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+        }
+
+        .form-signin {
+            max-width: 400px;
+            margin: auto;
+            padding: 3rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-signin img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-signin h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .form-control {
+            border-radius: 30px;
+            box-shadow: none;
+            border: 1px solid #ddd;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 5px rgba(37, 117, 252, 0.6);
+        }
+
+        .btn-primary {
+            background-color: #2575fc;
+            border-color: #2575fc;
+            border-radius: 30px;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a62d8;
+            border-color: #1a62d8;
+        }
+
+        .checkbox {
+            margin-bottom: 1rem;
+        }
+
+        .checkbox input {
+            margin-right: 5px;
+        }
+
+        .text-muted {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+
+    <form class="form-signin" action="/admin" method="POST"> 
+        <img class="mb-4" src="/static/images/login_img.jpg" alt="Logo">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Admin Login</h1>
+
+        <div class="form-floating mb-3">
+            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+            <label for="inputEmail">Email address</label>
+        </div>
+
+        <div class="form-floating mb-4">
+            <input type="password" id="inputPassword" name="pass" class="form-control" placeholder="Password" required>
+            <label for="inputPassword">Password</label>
+        </div>
+
+        <div class="checkbox mb-4">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block w-100" type="submit">Sign in</button>
+
+        <p class="footer-text mt-4 text-muted">© Uchhas Saha 2017-2022</p>
+    </form>
+
+</body>
+
+</html>

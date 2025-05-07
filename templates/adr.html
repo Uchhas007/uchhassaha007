@@ -1,0 +1,39 @@
+{% extends 'adminlayout.html' %}
+
+{% block body %}
+
+      
+<div class="container mt-4">
+    <h2 class="mb-4">Contacts Table</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>S.No</th>
+            <th>Degree</th>
+            <th>Date</th>
+            <th>Institute</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in c %}
+          <tr>
+            <td>{{ row.sno }}</td>
+            <td>{{ row.degree }}</td>
+            <td>{{ row.date }}</td>
+            <td>{{ row.institute }}</td>
+            <td>{{ row.description }}</td>
+            <td>
+                <a href="/admin/resume/edit/{{ row.sno }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="/admin/resume/delete/{{ row.sno }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this contact?');">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% endblock %}

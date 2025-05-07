@@ -1,0 +1,39 @@
+{% extends 'adminlayout.html' %}
+
+{% block body %}
+
+      
+<div class="container mt-4">
+    <h2 class="mb-4">Projects Table</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>URL</th>
+            <th>Image File</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in c %}
+          <tr>
+            <td>{{ row.sno }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.category }}</td>
+            <td>{{ row.url }}</td>
+            <td>{{ row.img_file }}</td>
+            <td>
+                <a href="/admin/projects/edit/{{ row.sno }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="/admin/projects/delete/{{ row.sno }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this contact?');">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% endblock %}
