@@ -1,32 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>404 - Oh Noooo!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes tilt {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        .animate-tilt {
+            animation: tilt 6s ease-in-out infinite;
+        }
+
+        @keyframes fallTopLeft {
+            0% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(-100px, 100vh); opacity: 0; }
+        }
+        @keyframes fallTopRight {
+            0% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(100px, 100vh); opacity: 0; }
+        }
+        .animate-fall-topLeft {
+            animation: fallTopLeft 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        .animate-fall-topRight {
+            animation: fallTopRight 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        .animate-twinkle {
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(128, 0, 255, 0.5); }
+        }
+        .animate-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        .animate-spin {
+            animation: spin 1s ease-in-out;
+        }
+
+        @keyframes beam {
+            0% { box-shadow: 0 0 20px 10px rgba(0, 255, 0, 0.5); }
+            50% { box-shadow: 0 0 50px 25px rgba(0, 255, 0, 0.8); }
+            100% { box-shadow: 0 0 20px 10px rgba(0, 255, 0, 0.5); }
+        }
+        .animate-beam {
+            animation: beam 0.7s ease-in-out;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(5deg); }
+            75% { transform: translate(-50%, -50%) rotate(-5deg); }
+        }
+        .animate-wobble {
+            animation: wobble 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+        }
+        .animate-orbit {
+            animation: orbit 20s linear infinite;
+        }
+
+        @keyframes planetPulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+            50% { transform: scale(1.2); box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+        }
+        .animate-planetPulse {
+            animation: planetPulse 1s ease-in-out;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .bg-gradient-overlay {
+            background: linear-gradient(45deg, rgba(128, 0, 255, 0.3), rgba(0, 255, 255, 0.3), rgba(255, 0, 128, 0.3));
+            background-size: 200% 200%;
+            animation: gradientShift 12s ease-in-out infinite;
+        }
+
+        /* Background */
+        .bg-space {
+            background: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9770934.jpg-Wl31ERQfbntJABIblVId5PIBjqP5Gx.jpeg") no-repeat center center/cover;
+        }
+
+        /* UFO */
+        .ufo {
+            position: absolute;
+            top: 33%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: float 6s ease-in-out infinite, tilt 6s ease-in-out infinite;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), box referencesource: box-shadow;
+            cursor: pointer;
+        }
+        .ufo:hover {
+            transform: translate(-50%, -50%) scale(1.15);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.7);
+        }
+
+        /* Planets */
+        .planet {
+            position: absolute;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .planet:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Button */
+        .return-button {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+        }
+        .return-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.7);
+        }
+        .return-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+        .return-button:hover::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Star Parallax */
+        .star-parallax {
+            transition: transform 0.1s ease-out;
+        }
+    </style>
 </head>
-<body style="font-family:Comic Sans MS, cursive; background-color:#fff0f5; color:#333; text-align:center; padding:50px;">
+<body>
+    <!-- Root div for React rendering -->
+    <div id="root"></div>
 
-  <h1 style="font-size:5em;">💀 404</h1>
-  <h2>Oh snap! You've ventured into the void 🌌</h2>
+    <!-- React and ReactDOM CDNs -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Babel CDN for JSX transpilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- React component and logic -->
+    {% raw %}
+    <script type="text/babel">
+        const { useEffect, useState } = React;
 
-  <p>
-    The page you're looking for is either lost, hiding, or was never born.<br>
-    Maybe it took a coffee break ☕ or rage-quit life 🤯.
-  </p>
+        const generateStars = (count) => {
+            return Array.from({ length: count }, (_, i) => ({
+                id: i,
+                size: Math.random() * 2 + 1,
+                top: `${Math.random() * 50}%`,
+                left: `${Math.random() * 100}%`,
+                duration: Math.random() * 3 + 4,
+                delay: Math.random() * 4,
+                direction: Math.random() > 0.5 ? "topLeft" : "topRight",
+            }));
+        };
 
-  <img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" alt="Confused Travolta" style="width:300px; margin:30px auto; display:block;">
+        const planets = [
+            {
+                id: 1,
+                size: 50,
+                top: '20%',
+                left: '10%',
+                background: 'radial-gradient(circle, #ff6b6b, #b22222)', // Red planet
+                orbitDelay: '0s',
+            },
+            {
+                id: 2,
+                size: 70,
+                top: '60%',
+                left: '80%',
+                background: 'radial-gradient(circle, #4dabf7, #1e90ff)', // Blue planet
+                orbitDelay: '5s',
+            },
+            {
+                id: 3,
+                size: 40,
+                top: '40%',
+                left: '20%',
+                background: 'radial-gradient(circle, #feca57, #ff9f43)', // Yellow planet
+                orbitDelay: '10s',
+            },
+        ];
 
-  <h3>Here's what you can do now:</h3>
-  <ul style="list-style:none; padding:0;">
-    <li>🔍 Check the URL (seriously, it's probably your fault)</li>
-    <li>🏠 <a href="/" style="color:blue;">Go back to the homepage</a></li>
-    <li>🤷‍♂️ Cry in the shower</li>
-    <li>🎲 Flip a coin and try a new link</li>
-  </ul>
+        function NotFound() {
+            const [stars, setStars] = useState([]);
+            const [ufoClicked, setUfoClicked] = useState(false);
+            const [planetClicked, setPlanetClicked] = useState(null);
+            const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  <footer style="margin-top:50px; font-size:0.9em;">
-    <p>&copy; 2025 Lost & Confused Inc. | 404 Club Member Since Forever</p>
-  </footer>
+            useEffect(() => {
+                setStars(generateStars(30));
 
+                const interval = setInterval(() => {
+                    setStars((prev) => [...prev.slice(-20), ...generateStars(10)]);
+                }, 4000);
+
+                const handleMouseMove = (e) => {
+                    setMousePos({ x: e.clientX, y: e.clientY });
+                };
+
+                window.addEventListener('mousemove', handleMouseMove);
+
+                return () => {
+                    clearInterval(interval);
+                    window.removeEventListener('mousemove', handleMouseMove);
+                };
+            }, []);
+
+            const handleUfoClick = () => {
+                setUfoClicked(true);
+                setTimeout(() => setUfoClicked(false), 700);
+            };
+
+            const handlePlanetClick = (id) => {
+                setPlanetClicked(id);
+                setTimeout(() => setPlanetClicked(null), 1000);
+            };
+
+            return (
+                <div className="relative min-h-screen w-full bg-black text-white flex items-center justify-center">
+                    {/* Background Image */}
+                    <div className="absolute inset-0 bg-space"></div>
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-overlay"></div>
+
+                    {/* Planets */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        {planets.map((planet) => (
+                            <div
+                                key={planet.id}
+                                className={`planet ${planetClicked === planet.id ? 'animate-planetPulse' : ''}`}
+                                style={{
+                                    top: planet.top,
+                                    left: planet.left,
+                                    width: `${planet.size}px`,
+                                    height: `${planet.size}px`,
+                                    background: planet.background,
+                                    animation: `orbit 20s linear infinite ${planet.orbitDelay}`,
+                                }}
+                                onClick={() => handlePlanetClick(planet.id)}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Falling Stars */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        {stars.map((star) => {
+                            const parallaxX = (mousePos.x / window.innerWidth - 0.5) * 15;
+                            const parallaxY = (mousePos.y / window.innerHeight - 0.5) * 15;
+                            return (
+                                <div
+                                    key={star.id}
+                                    className={`absolute star-parallax ${star.direction === 'topLeft' ? 'animate-fall-topLeft' : 'animate-fall-topRight'} animate-twinkle`}
+                                    style={{
+                                        top: star.top,
+                                        left: star.left,
+                                        width: `${star.size}px`,
+                                        height: `${star.size}px`,
+                                        animationDuration: `${star.duration}s`,
+                                        animationDelay: `${star.delay}s`,
+                                        transform: `translate(${parallaxX}px, ${parallaxY}px)`,
+                                    }}
+                                >
+                                    <div className="h-full w-full rounded-full bg-white opacity-80" />
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* UFO */}
+                    <div
+                        className={`ufo ${ufoClicked ? 'animate-spin animate-beam animate-wobble' : ''}`}
+                        onClick={handleUfoClick}
+                    >
+                        <img
+                            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8794272-p5k6GdbD8O2RIat5GWtUGJGkDgXoxf.png"
+                            alt="UFO"
+                            width={300}
+                            height={150}
+                        />
+                    </div>
+
+                    {/* Content */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
+                        <h1 className="mb-2 text-7xl font-bold text-white animate-glow">404</h1>
+                        <p className="mb-8 text-xl text-gray-300 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+                            Oops! Looks like this page got lost in space
+                        </p>
+                        <a
+                            href="/"
+                            className="px-6 py-3 text-white bg-purple-600 rounded-lg return-button animate-fadeIn"
+                            style={{ animationDelay: '0.4s' }}
+                        >
+                            Return to Earth (C-137)
+                        </a>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<NotFound />, document.getElementById("root"));
+    </script>
+    {% endraw %}
 </body>
 </html>
